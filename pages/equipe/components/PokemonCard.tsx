@@ -1,5 +1,6 @@
 // components/PokemonCard.tsx
 import type { PokemonCardProps } from "../types/types";
+import { useState } from "react";
 
 export const PokemonCard = ({ pokemon, onRemove }: PokemonCardProps) => {
   const sprite = pokemon.isShiny

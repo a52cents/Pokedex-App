@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useData } from "vike-react/useData";
 import type { Data } from "./+data.js";
-import { onPokemonSearch } from "./Pokedex.telefunc.js";
+import { onLoadMorePokemons, onPokemonSearch } from "./Pokedex.telefunc.js";
 import { POKEMON_TYPES } from "./types";
 export default function Page() {
   const initialPokemons = useData<Data>();
@@ -9,6 +9,7 @@ export default function Page() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [offset, setOffset] = useState(30); // suivre la page
 
   const handleSearch = async () => {
     console.log("clicked");
@@ -24,7 +25,19 @@ export default function Page() {
       });
 
       setPokemons(searchResults);
-      console.log(searchResults);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadMorePokemons = async () => {
+    setIsLoading(true);
+    try {
+      const newPokemons = await onLoadMorePokemons(offset);
+      setPokemons((prevPokemons) => [...prevPokemons, ...newPokemons]);
+      setOffset((prevOffset) => prevOffset + 30);
     } catch (error) {
       console.error(error);
     } finally {
@@ -95,7 +108,16 @@ export default function Page() {
           </a>
         ))}
       </div>
-
+      {/* Bouton Charger plus */}
+      <div className="flex justify-center mt-8">
+        <button
+          onClick={loadMorePokemons}
+          disabled={isLoading}
+          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors disabled:bg-gray-300"
+        >
+          {isLoading ? "Chargement..." : "Charger plus..."}
+        </button>
+      </div>
       <p className="text-center mt-8 text-gray-600">
         Source:{" "}
         <a

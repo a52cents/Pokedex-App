@@ -12,6 +12,9 @@ type TeamContextType = {
   team: TeamPokemon[];
   addToTeam: (pokemon: TeamPokemon) => void;
   removeFromTeam: (pokemon: TeamPokemon) => void;
+  setTeam: (team: TeamPokemon[]) => void;
+  selectedTeamId: number;
+  setSelectedTeamId: (id: number) => void;
 };
 
 const TeamContext = createContext<TeamContextType | undefined>(undefined);
@@ -23,6 +26,7 @@ export function TeamContextProvider({
   children: React.ReactNode;
 }) {
   const [team, setTeam] = useState<TeamPokemon[]>([]);
+  const [selectedTeamId, setSelectedTeamId] = useState<number>(0);
 
   const addToTeam = (pokemon: TeamPokemon) => {
     if (team.length >= 6) {
@@ -54,7 +58,16 @@ export function TeamContextProvider({
   };
 
   return (
-    <TeamContext.Provider value={{ team, addToTeam, removeFromTeam }}>
+    <TeamContext.Provider
+      value={{
+        team,
+        addToTeam,
+        removeFromTeam,
+        setTeam,
+        selectedTeamId,
+        setSelectedTeamId,
+      }}
+    >
       {children}
     </TeamContext.Provider>
   );
