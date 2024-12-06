@@ -11,12 +11,13 @@ import {
   onSaveTeam,
 } from "./equipe.telefunc";
 import { calculateTeamStats, getUniqueTypes } from "./utils/calculation";
+import type { SaveTeamInput } from "./types/types";
 
 export default function Page() {
   const { team, removeFromTeam, setTeam, selectedTeamId, setSelectedTeamId } =
     useTeamContext();
   const [teamName, setTeamName] = useState("");
-  const [savedTeams, setSavedTeams] = useState<any[]>([]);
+  const [savedTeams, setSavedTeams] = useState<SaveTeamInput[]>([]);
 
   useEffect(() => {
     loadTeams();

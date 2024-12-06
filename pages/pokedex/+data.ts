@@ -1,34 +1,6 @@
 import { env } from "process";
 import { useConfig } from "vike-react/useConfig";
-
-export type Pokemon = {
-  id: string;
-  name: string;
-  sprites: Sprites;
-  slug: string;
-};
-
-export type Sprites = {
-  shiny: {
-    male: string | null;
-    female: string | null;
-  };
-  normal: {
-    male: string | null;
-    female: string | null;
-  };
-};
-export type PokemonType = {
-  name: string;
-  slot: number;
-  slug: string;
-};
-
-export type PokemonStat = {
-  name: string;
-  slug: string;
-  base_stat: number;
-};
+import type { Pokemon } from "./types";
 
 export type Data = Awaited<ReturnType<typeof data>>;
 
@@ -44,7 +16,7 @@ export const data = async () => {
   );
   const pokemonsData = (await response.json()) as Pokemon[];
   config({
-    title: `${pokemonsData.length} Pokemons`,
+    title: ` Pokedex`,
   });
   return pokemonsData;
 };

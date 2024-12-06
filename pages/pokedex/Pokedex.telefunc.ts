@@ -33,9 +33,19 @@ export async function onAddToTeam(teamPokemon: {
   return true;
 }
 
-export async function onLoadMorePokemons(offset: number) {
+export async function onLoadMorePokemons(
+  offset: number,
+  type?: string,
+  searchTerm?: string
+) {
+  const params = new URLSearchParams();
+  params.append("limit", "30");
+  params.append("offset", offset.toString());
+  if (type) params.append("type", type);
+  if (searchTerm) params.append("search", searchTerm);
+
   const response = await fetch(
-    `https://pokedex.coda.memento-dev.fr/pokemon?limit=30&offset=${offset}`,
+    `https://pokedex.coda.memento-dev.fr/pokemon?${params.toString()}`,
     {
       headers: {
         Authorization: `Bearer ${import.meta.env.POKEMON_API_KEY}`,

@@ -1,19 +1,6 @@
 import prisma from "../../lib/prisma";
 import type { TeamPokemon } from "../../contexts/TeamContext";
-
-type SaveTeamInput = {
-  name: string;
-  pokemons: TeamPokemon[];
-  stats: {
-    name: string;
-    value: number;
-  }[];
-  types: {
-    name: string;
-    count: number;
-  }[];
-};
-
+import type { SaveTeamInput } from "./types/types";
 export async function onSaveTeam(input: SaveTeamInput & { id?: number }) {
   try {
     if (input.id) {

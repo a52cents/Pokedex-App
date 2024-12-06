@@ -1,10 +1,41 @@
 // pages/pokedex/types.ts
-export type PokemonType = {
+export type PokemonTypeColor = {
   slug: string;
   name: string;
 };
 
-export const POKEMON_TYPES: PokemonType[] = [
+export type Pokemon = {
+  id: string;
+  name: string;
+  sprites: Sprites;
+  slug: string;
+  types: PokemonType[];
+  stats: PokemonStat[];
+};
+
+export type Sprites = {
+  shiny: {
+    male: string | null;
+    female: string | null;
+  };
+  normal: {
+    male: string | null;
+    female: string | null;
+  };
+};
+export type PokemonType = {
+  name: string;
+  slot: number;
+  slug: string;
+};
+
+export type PokemonStat = {
+  name: string;
+  slug: string;
+  base_stat: number;
+};
+
+export const POKEMON_TYPES: PokemonTypeColor[] = [
   { slug: "bug", name: "Insecte" },
   { slug: "dark", name: "Ténèbres" },
   { slug: "dragon", name: "Dragon" },

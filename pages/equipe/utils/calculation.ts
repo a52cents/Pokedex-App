@@ -27,16 +27,40 @@ export const calculateTeamStats = (team: TeamPokemon[]) => {
 };
 
 export const getUniqueTypes = (team: TeamPokemon[]) => {
-  const typeCount = new Map<string, number>();
+  const typeCount = new Map<string, { name: string; count: number }>();
 
   team.forEach(({ pokemon }) => {
     pokemon.types.forEach((type) => {
-      typeCount.set(type.name, (typeCount.get(type.name) || 0) + 1);
+      const slug = type.slug;
+      if (typeCount.has(slug)) {
+        typeCount.get(slug)!.count += 1;
+      } else {
+        typeCount.set(slug, { name: type.name, count: 1 });
+      }
     });
   });
 
-  return Array.from(typeCount.entries()).map(([name, count]) => ({
-    name,
-    count,
-  }));
+  return Array.from(typeCount.entries())
+    .map(([slug, { name, count }]) => ({
+      slug,
+      name,
+      count,
+    }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+};
+
+export const STAT_MAX_VALUES = {
+  hp: 255,
+  attack: 190,
+  defense: 250,
+  "special-attack": 194,
+  "special-defense": 250,
+  speed: 200,
+};
+
+export const getStatColor = (value: number, maxValue: number) => {
+  const ratio = value / maxValue;
+  if (ratio < 0.33) return "bg-red-500";
+  if (ratio < 0.66) return "bg-yellow-500";
+  return "bg-green-500";
 };

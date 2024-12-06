@@ -1,6 +1,6 @@
 import { PageContextServer } from "vike/types";
-import { Pokemon } from "../+data";
-import type { Sprites, PokemonType, PokemonStat } from "../+data";
+import type { Sprites, PokemonType, PokemonStat } from "../types";
+import { useConfig } from "vike-react/useConfig";
 
 export type Response = {
   current: PokemonDetails;
@@ -32,6 +32,7 @@ export type PokemonDetails = {
 export type Data = Awaited<ReturnType<typeof data>>;
 
 export const data = async (pageContext: PageContextServer) => {
+  const config = useConfig();
   const response = await fetch(
     `https://pokedex.coda.memento-dev.fr/pokemon/${pageContext.routeParams.id}`,
     {
@@ -41,6 +42,8 @@ export const data = async (pageContext: PageContextServer) => {
     }
   );
   const pokemonData = (await response.json()) as Response;
-  console.log(pokemonData);
+  config({
+    title: `Détail de ${pokemonData.current.name}`,
+  });
   return pokemonData;
 };
