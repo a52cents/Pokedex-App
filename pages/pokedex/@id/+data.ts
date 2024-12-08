@@ -2,6 +2,7 @@ import { PageContextServer } from "vike/types";
 import type { Sprites, PokemonType, PokemonStat } from "../types";
 import { useConfig } from "vike-react/useConfig";
 
+// creation du type de la reponse de l'api
 export type Response = {
   current: PokemonDetails;
   previous?: PokemonDetails;

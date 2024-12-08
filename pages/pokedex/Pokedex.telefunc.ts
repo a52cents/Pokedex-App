@@ -1,5 +1,6 @@
 import { PokemonDetails } from "./@id/+data";
 
+// Recherche de pokemons par nom et/ou type
 export async function onPokemonSearch({
   searchTerm,
   type,
@@ -7,10 +8,12 @@ export async function onPokemonSearch({
   searchTerm?: string;
   type?: string;
 }) {
+  //creations des params de la requete
   const params = new URLSearchParams();
   if (searchTerm) params.append("search", searchTerm);
   if (type) params.append("type", type);
   params.append("with", "types");
+  // Appel a l'api
   const response = await fetch(
     `https://pokedex.coda.memento-dev.fr/pokemon?${params.toString()}`,
     {
@@ -24,15 +27,17 @@ export async function onPokemonSearch({
   return data;
 }
 
+// Ajout d'un pokemon à l'équipe
 export async function onAddToTeam(teamPokemon: {
   pokemon: PokemonDetails;
   isShiny: boolean;
   isFemale: boolean;
   position: number;
 }) {
-  return true;
+  return teamPokemon;
 }
 
+// Chargement de plus de pokemons
 export async function onLoadMorePokemons(
   offset: number,
   type?: string,

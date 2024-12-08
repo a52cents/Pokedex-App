@@ -12,23 +12,23 @@ export const calculateTeamStats = (team: TeamPokemon[]) => {
     "special-defense": 0,
     speed: 0,
   };
-
+  // calcul stats totale
   const totalStats = team.reduce((acc, { pokemon }) => {
     pokemon.stats?.forEach((stat) => {
       acc[stat.slug as keyof typeof initialStats] += stat.base_stat;
     });
     return acc;
   }, initialStats);
-
+  // calcul stats moyennes
   return Object.entries(totalStats).map(([key, value]) => ({
     name: key,
     value: Math.round(value / team.length),
   }));
 };
-
+// obtenir les differents types de l'equipe
 export const getUniqueTypes = (team: TeamPokemon[]) => {
   const typeCount = new Map<string, { name: string; count: number }>();
-
+  // comptage des types
   team.forEach(({ pokemon }) => {
     pokemon.types.forEach((type) => {
       const slug = type.slug;
@@ -49,6 +49,7 @@ export const getUniqueTypes = (team: TeamPokemon[]) => {
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 };
 
+// stats max des pokemons
 export const STAT_MAX_VALUES = {
   hp: 255,
   attack: 190,
@@ -57,7 +58,7 @@ export const STAT_MAX_VALUES = {
   "special-defense": 250,
   speed: 200,
 };
-
+// fonction pour la obtenir la couleur de la stats en fonction de sa valeur
 export const getStatColor = (value: number, maxValue: number) => {
   const ratio = value / maxValue;
   if (ratio < 0.33) return "bg-red-500";

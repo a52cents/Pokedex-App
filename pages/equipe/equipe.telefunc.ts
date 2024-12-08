@@ -1,8 +1,11 @@
 import prisma from "../../lib/prisma";
 import type { TeamPokemon } from "../../contexts/TeamContext";
 import type { SaveTeamInput } from "./types/types";
+
+// Sauvegarde de l'équipe dans la bdd
 export async function onSaveTeam(input: SaveTeamInput & { id?: number }) {
   try {
+    // Si ID fourni alors on met à jour l'équipe
     if (input.id) {
       return await prisma.team.update({
         where: { id: input.id },
@@ -14,6 +17,7 @@ export async function onSaveTeam(input: SaveTeamInput & { id?: number }) {
         },
       });
     }
+    // Sinon on crée une nouvelle équipe
     return await prisma.team.create({
       data: {
         name: input.name,
@@ -28,6 +32,7 @@ export async function onSaveTeam(input: SaveTeamInput & { id?: number }) {
   }
 }
 
+// Chargement d'une équipe par l'id
 export async function onLoadTeam(id: number) {
   try {
     const team = await prisma.team.findUnique({
@@ -50,6 +55,7 @@ export async function onLoadTeam(id: number) {
   }
 }
 
+// Chargement de toutes les équipes
 export async function onGetTeams() {
   try {
     const teams = await prisma.team.findMany({
@@ -67,6 +73,7 @@ export async function onGetTeams() {
   }
 }
 
+// Suppression d'une équipe par l'id
 export async function onDeleteTeam(id: number) {
   try {
     await prisma.team.delete({

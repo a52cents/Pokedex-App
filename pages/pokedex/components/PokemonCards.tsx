@@ -6,11 +6,11 @@ interface PokemonCardsProps {
 }
 
 const PokemonCards: React.FC<PokemonCardsProps> = ({ pokemons }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+  <div className="flex flex-wrap justify-center gap-4 transition-all duration-300 ease-in-out">
     {pokemons.map((pokemon) => (
       <div
         key={pokemon.id}
-        className="relative w-48 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-4 text-center hover:scale-105 transform"
+        className="relative w-32 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow p-4 text-center hover:scale-105 transform"
       >
         <a key={pokemon.id} href={`/pokedex/${pokemon.slug}`} className="block">
           <div

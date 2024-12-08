@@ -9,8 +9,10 @@ import Navigation from "./components/Navigation";
 import StatsAndTypes from "./components/StatsAndTypes";
 import ImageOptions from "./components/ImageOptions";
 export default function Page() {
+  // Recuperation des donnees du pokemon
   const pokemon = useData<Data>();
   const { current, previous, next } = pokemon;
+  // Etats pour gerer les options d'affichage du pokemon
   const [isShiny, setIsShiny] = useState(false);
   const [isFemale, setIsFemale] = useState(false);
   const { team, addToTeam } = useTeamContext();
@@ -34,10 +36,12 @@ export default function Page() {
     setCoordinates({ x: 0, y: 0 });
   };
 
+  // Verifier si le pokemon a une version femelle
   const hasFemaleVersion = isShiny
     ? current.sprites.shiny.female !== null
     : current.sprites.normal.female !== null;
 
+  // Determiner le sprite a afficher du pokemon
   const currentSprite = isShiny
     ? isFemale
       ? current.sprites.shiny.female || current.sprites.shiny.male || ""
@@ -46,6 +50,7 @@ export default function Page() {
     ? current.sprites.normal.female || current.sprites.normal.male || ""
     : current.sprites.normal.male || "";
 
+  // Ajouter le pokemon a l'equipe
   const handleAddToTeam = () => {
     const position = team.length;
     if (position < 6) {

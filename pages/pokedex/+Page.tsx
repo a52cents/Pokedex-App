@@ -8,15 +8,22 @@ import PokemonCards from "./components/PokemonCards.jsx";
 import LoadMoreButton from "./components/LoadMoreButton.jsx";
 
 export default function Page() {
+  //Donnees initiales des pokemons
   const initialPokemons = useData<Data>();
+  //pokemons affichés
   const [pokemons, setPokemons] = useState(initialPokemons);
+  //Search Bar
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState("");
+  //Loading
   const [isLoading, setIsLoading] = useState(false);
-  const [offset, setOffset] = useState(30); // suivre la page
+  // offset pour charger les autres pokemons
+  const [offset, setOffset] = useState(30);
   const [isSearching, setIsSearching] = useState(false);
 
+  //Fonction recherche des pokemons
   const handleSearch = async () => {
+    
     if (searchTerm.trim() === "" && !selectedType) {
       setPokemons(initialPokemons);
       setIsSearching(false);
@@ -25,6 +32,7 @@ export default function Page() {
     setIsLoading(true);
     setIsSearching(true);
     try {
+      // appel a l'api
       const searchResults = await onPokemonSearch({
         searchTerm: searchTerm.trim(),
         type: selectedType,
@@ -33,7 +41,7 @@ export default function Page() {
       const filteredResults = searchResults.filter((pokemon: Pokemon) =>
         pokemon.name.toLowerCase().includes(searchTerm.trim().toLowerCase())
       );
-
+      // MAJ des okemons affichés
       setPokemons(filteredResults);
     } catch (error) {
       console.error(error);
@@ -43,14 +51,17 @@ export default function Page() {
     }
   };
 
+  //Fonction pour charger plus de pokemons
   const loadMorePokemons = async () => {
     setIsLoading(true);
     try {
+      // appel a l'api
       const newPokemons = await onLoadMorePokemons(
         offset,
         selectedType,
         searchTerm.trim()
       );
+      // MAJ des pokemons affichés
       setPokemons((prevPokemons) => [...prevPokemons, ...newPokemons]);
       setOffset((prevOffset) => prevOffset + 30);
     } catch (error) {
@@ -63,7 +74,6 @@ export default function Page() {
   return (
     <div className="container mx-auto px-4">
       <h1 className="text-4xl font-bold text-center mb-8">Pokédex</h1>
-
       <SearchBar
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
@@ -71,15 +81,12 @@ export default function Page() {
         selectedType={selectedType}
         setSelectedType={setSelectedType}
       />
-
       <PokemonCards pokemons={pokemons} />
-
       <LoadMoreButton
         loadMorePokemons={loadMorePokemons}
         isLoading={isLoading}
         isSearching={isSearching}
       />
-
       <p className="text-center mt-8 text-gray-600">
         Source:{" "}
         <a

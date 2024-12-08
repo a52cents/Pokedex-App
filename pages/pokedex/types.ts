@@ -1,4 +1,6 @@
 // pages/pokedex/types.ts
+
+// Differents types de la page pokedex
 export type PokemonTypeColor = {
   slug: string;
   name: string;
