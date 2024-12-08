@@ -1,92 +1,54 @@
-<!--bati:start section="document"-->
+# Pokédex React Application
 
-<!--bati:start section="intro"-->
+Une application web de Pokédex construite avec React, permettant aux utilisateurs de parcourir, rechercher et créer des équipes de Pokémon.
 
-Generated with [Bati](https://batijs.dev) ([version 312](https://www.npmjs.com/package/create-bati/v/0.0.312)) using this command:
+## 🚀 Technologies Utilisées
 
-```sh
-pnpm create bati --react --tailwindcss --telefunc --fastify --prisma
-```
+- [React](https://react.dev) - Framework UI
+- [Vike](https://vike.dev) - Framework meta
+- [TailwindCSS](https://tailwindcss.com) - Styling
+- [Prisma](https://www.prisma.io) - ORM pour la base de données
+- [Telefunc](https://telefunc.com) - Communication client-serveur
+- [Fastify](https://www.fastify.io) - Serveur Node.js
 
-<!--bati:start section="TOC"-->
+## 🎯 Fonctionnalités
 
-## Contents
+- 📱 Interface responsive
+- 🔍 Recherche de Pokémon par nom et type
+- 🔄 Chargement dynamique des Pokémon
+- 👥 Gestion d'équipes
+  - Création d'équipes personnalisées
+  - Visualisation des statistiques d'équipe
+  - Sauvegarde des équipes
+- ✨ Support des versions shiny et femelles des Pokémon
 
-* [React](#react)
+## 🛠️ Installation
 
-  * [`/pages/+config.ts`](#pagesconfigts)
-  * [Routing](#routing)
-  * [`/pages/_error/+Page.jsx`](#pages_errorpagejsx)
-  * [`/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`](#pagesonpagetransitionstartts-and-pagesonpagetransitionendts)
-  * [SSR](#ssr)
-  * [HTML Streaming](#html-streaming)
-
-* [*Prisma*](#prisma)
-
-  * [Setup](#setup)
-
-<!--bati:end section="TOC"-->
-
-<!--bati:end section="intro"-->
-
-<!--bati:start section="features"-->
-
-<!--bati:start category="UI Framework" flag="react"-->
-
-## React
-
-This app is ready to start. It's powered by [Vike](https://vike.dev) and [React](https://react.dev/learn).
-
-### `/pages/+config.ts`
-
-Such `+` files are [the interface](https://vike.dev/config) between Vike and your code. It defines:
-
-* A default [`<Layout>` component](https://vike.dev/Layout) (that wraps your [`<Page>` components](https://vike.dev/Page)).
-* A default [`title`](https://vike.dev/title).
-* Global [`<head>` tags](https://vike.dev/head-tags).
-
-### Routing
-
-[Vike's built-in router](https://vike.dev/routing) lets you choose between:
-
-* [Filesystem Routing](https://vike.dev/filesystem-routing) (the URL of a page is determined based on where its `+Page.jsx` file is located on the filesystem)
-* [Route Strings](https://vike.dev/route-string)
-* [Route Functions](https://vike.dev/route-function)
-
-### `/pages/_error/+Page.jsx`
-
-The [error page](https://vike.dev/error-page) which is rendered when errors occur.
-
-### `/pages/+onPageTransitionStart.ts` and `/pages/+onPageTransitionEnd.ts`
-
-The [`onPageTransitionStart()` hook](https://vike.dev/onPageTransitionStart), together with [`onPageTransitionEnd()`](https://vike.dev/onPageTransitionEnd), enables you to implement page transition animations.
-
-### SSR
-
-SSR is enabled by default. You can [disable it](https://vike.dev/ssr) for all your pages or only for some pages.
-
-### HTML Streaming
-
-You can enable/disable [HTML streaming](https://vike.dev/stream) for all your pages, or only for some pages while still using it for others.
-
-<!--bati:end category="UI Framework" flag="react"-->
-
-<!--bati:start category="Database" flag="prisma"-->
-
-## *Prisma*
-
-### Setup
-
-Run the following command once:
+1. Clonez le repository
 
 ```sh
-pnpx prisma init
+  git clone [my-app]
 ```
 
-then follow instructions at <https://www.prisma.io/docs/getting-started/quickstart#2-model-your-data-in-the-prisma-schema>
+2. Installez les dépendances
 
-<!--bati:end category="Database" flag="prisma"-->
+```sh
+  cd my-app
+  npm install
+```
 
-<!--bati:end section="features"-->
+3. Configurez la base de données
 
-<!--bati:end section="document"-->
+```sh
+  npx prisma migrate dev
+```
+
+4. Démarrez l'app
+
+```sh
+  npm run dev
+```
+
+## 🚀 Utilisation
+
+1. Ouvrez votre navigateur et allez à <http://localhost:3000>
